@@ -84,5 +84,16 @@ namespace Map.Toolkit.Test
             var expectedContinentCount = 1;
             Check.That(continentNumber).IsEqualTo(expectedContinentCount);
         }
+
+        [Test]
+        public void The_number_of_continents_should_be_1_when_map_is_01_11()
+        {
+            int[][] mapStructure = { new[] { 0, 1 }, new[] { 1, 1 } };
+            _map = new MapToolkit.Model.Map(mapStructure);
+            var continentNumber = _map.ComputeContinent();
+
+            var expectedContinentCount = 1;
+            Check.That(continentNumber).IsEqualTo(expectedContinentCount);
+        }
     }
 }
