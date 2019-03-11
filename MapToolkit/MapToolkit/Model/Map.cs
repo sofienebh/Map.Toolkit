@@ -55,6 +55,24 @@ namespace MapToolkit.Model
             MergeLeftValue(clonedMapStructure, i, j);
             MergeDownValue(clonedMapStructure, i, j);
             MergeRightValue(clonedMapStructure, i, j);
+            MergeUpValue(clonedMapStructure, i, j);
+            MergeDiagonalUpValue(clonedMapStructure, i, j);
+            MergeDiagonalDowValue(clonedMapStructure, i, j);
+        }
+
+        private void MergeDiagonalDowValue(int[][] clonedMapStructure, int i, int j)
+        {
+            MergeValue(clonedMapStructure, i + 1, j - 1);
+        }
+
+        private void MergeDiagonalUpValue(int[][] clonedMapStructure, int i, int j)
+        {
+            MergeValue(clonedMapStructure, i + 1, j + 1);
+        }
+
+        private void MergeUpValue(int[][] clonedMapStructure, int i, int j)
+        {
+            MergeValue(clonedMapStructure, i - 1, j);
         }
 
         private void MergeRightValue(int[][] clonedMapStructure, int i, int j)
