@@ -1,4 +1,6 @@
-﻿namespace MapToolkit.Model
+﻿using System;
+
+namespace MapToolkit.Model
 {
     public class Map : IComputeContinent
     {
@@ -11,24 +13,43 @@
 
         public int ComputeContinent()
         {
-            if (_mapStructure == null || _mapStructure.Length == 0 || _mapStructure[0].Length == 0)
+            int[][] clonedMapStructure = (int[][])_mapStructure?.Clone();
+
+            if (clonedMapStructure == null || clonedMapStructure.Length == 0 || clonedMapStructure[0].Length == 0)
                 return 0;
 
-            int indX = _mapStructure.Length;
-            int indY = _mapStructure[0].Length;
+            int indX = clonedMapStructure.Length;
+            int indY = clonedMapStructure[0].Length;
             int continentCount = 0;
             for (int i = 0; i < indX; i++)
             {
                 for (int j = 0; j < indY; j++)
                 {
-                   if(_mapStructure[i][j]==1)
+                    if (clonedMapStructure[i][j] == 1)
                     {
                         continentCount++;
+                        MergeLeftValue(clonedMapStructure, i, j);
                     }
                 }
             }
 
             return continentCount;
+        }
+
+        private void MergeLeftValue(int[][] clonedMapStructure, int i, int j)
+        {
+            int indX = clonedMapStructure.Length;
+            int indY = clonedMapStructure[0].Length;
+
+            if (j + 1 >= indY)
+            {
+                return;
+            }
+
+            if (clonedMapStructure[i][j + 1] == 1)
+            {
+                clonedMapStructure[i][j + 1] = -1;
+            }
         }
     }
 }
