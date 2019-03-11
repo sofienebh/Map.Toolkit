@@ -28,13 +28,18 @@ namespace MapToolkit.Model
                     if (clonedMapStructure[i][j] == 1)
                     {
                         continentCount++;
-                        MergeLeftValue(clonedMapStructure, i, j);
-                        MergeDownValue(clonedMapStructure, i, j);
+                        MergeValue(clonedMapStructure, i, j);
                     }
                 }
             }
 
             return continentCount;
+        }
+
+        private void MergeValue(int[][] clonedMapStructure, int i, int j)
+        {
+            MergeLeftValue(clonedMapStructure, i, j);
+            MergeDownValue(clonedMapStructure, i, j);
         }
 
         private void MergeLeftValue(int[][] clonedMapStructure, int i, int j)
@@ -49,9 +54,9 @@ namespace MapToolkit.Model
 
             if (clonedMapStructure[i][j + 1] == 1)
             {
-                clonedMapStructure[i][j + 1] = -1;
+                MarkAsMerged(clonedMapStructure, i, j + 1);
             }
-        }
+        }    
 
         private void MergeDownValue(int[][] clonedMapStructure, int i, int j)
         {
@@ -65,8 +70,13 @@ namespace MapToolkit.Model
 
             if (clonedMapStructure[i + 1][j] == 1)
             {
-                clonedMapStructure[i + 1][j] = -1;
+                MarkAsMerged(clonedMapStructure, i + 1, j);
             }
+        }
+
+        private static void MarkAsMerged(int[][] clonedMapStructure, int i, int j)
+        {
+            clonedMapStructure[i][j] = -1;
         }
     }
 }
