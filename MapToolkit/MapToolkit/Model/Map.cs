@@ -4,16 +4,16 @@ namespace MapToolkit.Model
 {
     public class Map : IComputeContinent
     {
-        private readonly int[][] _mapStructure;
+        private readonly Point[][] _mapStructure;
 
-        public Map(int[][] mapStructure)
+        public Map(Point[][] mapStructure)
         {
             _mapStructure = mapStructure;
         }
 
         public int ComputeContinent()
         {
-            int[][] clonedMapStructure = (int[][])_mapStructure?.Clone();
+            Point[][] clonedMapStructure = (Point[][])_mapStructure?.Clone();
 
             if (clonedMapStructure == null || clonedMapStructure.Length == 0 || clonedMapStructure[0].Length == 0)
                 return 0;
@@ -25,7 +25,8 @@ namespace MapToolkit.Model
             {
                 for (int j = 0; j < indY; j++)
                 {
-                    if (clonedMapStructure[i][j] == 1)
+                    var cuurentPoint = clonedMapStructure[i][j];
+                    if (!cuurentPoint.IsEmptyOrMarked)
                     {
                         continentCount++;
                         MergeValue(clonedMapStructure, i, j);
@@ -36,7 +37,7 @@ namespace MapToolkit.Model
             return continentCount;
         }
 
-        private void MergeValue(int[][] clonedMapStructure, int i, int j)
+        private void MergeValue(Point[][] clonedMapStructure, int i, int j)
         {
             int indX = clonedMapStructure.Length;
             int indY = clonedMapStructure[0].Length;
@@ -44,7 +45,7 @@ namespace MapToolkit.Model
                 || i >= indX
                 || j < 0
                 || j >= indY
-                || clonedMapStructure[i][j] != 1
+                || clonedMapStructure[i][j].IsEmptyOrMarked
                 )
             {
                 return;
@@ -60,39 +61,39 @@ namespace MapToolkit.Model
             MergeDiagonalDowValue(clonedMapStructure, i, j);
         }
 
-        private void MergeDiagonalDowValue(int[][] clonedMapStructure, int i, int j)
+        private void MergeDiagonalDowValue(Point[][] clonedMapStructure, int i, int j)
         {
             MergeValue(clonedMapStructure, i + 1, j - 1);
         }
 
-        private void MergeDiagonalUpValue(int[][] clonedMapStructure, int i, int j)
+        private void MergeDiagonalUpValue(Point[][] clonedMapStructure, int i, int j)
         {
             MergeValue(clonedMapStructure, i + 1, j + 1);
         }
 
-        private void MergeUpValue(int[][] clonedMapStructure, int i, int j)
+        private void MergeUpValue(Point[][] clonedMapStructure, int i, int j)
         {
             MergeValue(clonedMapStructure, i - 1, j);
         }
 
-        private void MergeRightValue(int[][] clonedMapStructure, int i, int j)
+        private void MergeRightValue(Point[][] clonedMapStructure, int i, int j)
         {
             MergeValue(clonedMapStructure, i, j + 1);
         }
 
-        private void MergeLeftValue(int[][] clonedMapStructure, int i, int j)
+        private void MergeLeftValue(Point[][] clonedMapStructure, int i, int j)
         {
             MergeValue(clonedMapStructure, i, j - 1);
         }
 
-        private void MergeDownValue(int[][] clonedMapStructure, int i, int j)
+        private void MergeDownValue(Point[][] clonedMapStructure, int i, int j)
         {
             MergeValue(clonedMapStructure, i + 1, j);
         }
 
-        private static void MarkAsMerged(int[][] clonedMapStructure, int i, int j)
+        private static void MarkAsMerged(Point[][] clonedMapStructure, int i, int j)
         {
-            clonedMapStructure[i][j] = -1;
+            clonedMapStructure[i][j].Mark();
         }
     }
 }

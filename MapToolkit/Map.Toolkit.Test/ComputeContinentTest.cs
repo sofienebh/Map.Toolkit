@@ -1,4 +1,5 @@
-﻿using NFluent;
+﻿using MapToolkit.Model;
+using NFluent;
 using NUnit.Framework;
 
 namespace Map.Toolkit.Test
@@ -11,7 +12,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_0_when_map_is_empty()
         {
-            int[][] mapStructure = { };
+            Point[][] mapStructure = { };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -22,7 +23,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_0_when_map_is_00()
         {
-            int[][] mapStructure = { new[] { 0, 0 } };
+            Point[][] mapStructure = { new[] { new Point(0), new Point(0) } };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -33,7 +34,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_0_when_map_is_null()
         {
-            int[][] mapStructure = null;
+            Point[][] mapStructure = null;
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -44,7 +45,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_1_when_map_is_0()
         {
-            int[][] mapStructure = { new[] { 0 } };
+            Point[][] mapStructure = { new[] { new Point(0) } };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -55,7 +56,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_1_when_map_is_1()
         {
-            int[][] mapStructure = { new[] { 1 } };
+            Point[][] mapStructure = { new[] { new Point(1) } };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -66,7 +67,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_1_when_map_is_11()
         {
-            int[][] mapStructure = { new[] { 1, 1 } };
+            Point[][] mapStructure = { new[] { new Point(1), new Point(1) } };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -77,7 +78,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_1_when_map_is_10_10()
         {
-            int[][] mapStructure = { new[] { 1, 0 }, new[] { 1, 0 } };
+            Point[][] mapStructure = { new[] { new Point(1), new Point(0) }, new[] { new Point(1), new Point(0) } };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -88,7 +89,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_1_when_map_is_01_11()
         {
-            int[][] mapStructure = { new[] { 0, 1 }, new[] { 1, 1 } };
+            Point[][] mapStructure = { new[] { new Point(0), new Point(1) }, new[] { new Point(1), new Point(1) } };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -99,7 +100,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_1_when_map_is_01_01()
         {
-            int[][] mapStructure = { new[] { 0, 1 }, new[] { 0, 1 } };
+            Point[][] mapStructure = { new[] { new Point(0), new Point(1) }, new[] { new Point(0), new Point(1) } };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -110,7 +111,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_1_when_map_is_10_01()
         {
-            int[][] mapStructure = { new[] { 1, 0 }, new[] { 0, 1 } };
+            Point[][] mapStructure = { new[] { new Point(1), new Point(0) }, new[] { new Point(0), new Point(1) } };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -121,7 +122,7 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_1_when_map_is_01_10()
         {
-            int[][] mapStructure = { new[] { 0, 1 }, new[] { 1, 0 } };
+            Point[][] mapStructure = { new[] { new Point(0), new Point(1) }, new[] { new Point(1), new Point(0) } };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
 
@@ -132,15 +133,15 @@ namespace Map.Toolkit.Test
         [Test]
         public void The_number_of_continents_should_be_3_when_map_is_0000100000_0100100111_0111100000_0111100000_0100000100_0001111000_0001111000_0000000000()
         {
-            int[][] mapStructure = {
-                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
-                new[] { 0, 1, 0, 0, 1, 0, 0, 1, 1, 1 },
-                new[] { 0, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
-                new[] { 0, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
-                new[] { 0, 1, 0, 0, 0, 0, 0, 1, 0, 0 },
-                new[] { 0, 0, 0, 1, 1, 1, 1, 0, 0, 0 },
-                new[] { 0, 0, 0, 1, 1, 1, 1, 0, 0, 0 },
-                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+            Point[][] mapStructure = {
+                new[] { new Point(0),new Point(0),new Point(0),new Point(0),new Point(1),new Point(0),new Point(0),new Point( 0),new Point( 0), new Point(0)},
+                new[] { new Point(0),new Point(1),new Point(0),new Point(0),new Point(1),new Point(0),new Point(0),new Point( 1),new Point( 1), new Point(1)},
+                new[] { new Point(0),new Point(1),new Point(1),new Point(1),new Point(1),new Point(0),new Point(0),new Point( 0),new Point( 0), new Point(0)},
+                new[] { new Point(0),new Point(1),new Point(1),new Point(1),new Point(1),new Point(0),new Point(0),new Point( 0),new Point( 0), new Point(0)},
+                new[] { new Point(0),new Point(1),new Point(0),new Point(0),new Point(0),new Point(0),new Point(0),new Point( 1),new Point( 0), new Point(0)},
+                new[] { new Point(0),new Point(0),new Point(0),new Point(1),new Point(1),new Point(1),new Point(1),new Point( 0),new Point( 0), new Point(0)},
+                new[] { new Point(0),new Point(0),new Point(0),new Point(1),new Point(1),new Point(1),new Point(1),new Point( 0),new Point( 0), new Point(0)},
+                new[] { new Point(0),new Point(0),new Point(0), new Point(0),new Point(0),new Point(0),new Point(0),new Point( 0),new Point( 0), new Point(0)}
             };
             _map = new MapToolkit.Model.Map(mapStructure);
             var continentNumber = _map.ComputeContinent();
