@@ -2,16 +2,32 @@
 {
     public class Map : IComputeContinent
     {
-        private readonly int[][] _structure;
+        private readonly int[][] _mapStructure;
 
         public Map(int[][] mapStructure)
         {
-            _structure = mapStructure;
+            _mapStructure = mapStructure;
         }
 
         public int ComputeContinent()
         {
-            return 0;
+            if (_mapStructure == null || _mapStructure.Length == 0 || _mapStructure[0].Length == 0)
+                return 0;
+            int indY = _mapStructure.Length;
+            int indX = _mapStructure[0].Length;
+            int continentCount = 0;
+            for (int i = 0; i < indX; i++)
+            {
+                for (int j = 0; j < indY; j++)
+                {
+                   if(_mapStructure[i][j]==1)
+                    {
+                        continentCount++;
+                    }
+                }
+            }
+
+            return continentCount;
         }
     }
 }
