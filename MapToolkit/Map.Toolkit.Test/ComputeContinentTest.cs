@@ -128,5 +128,25 @@ namespace Map.Toolkit.Test
             var expectedContinentCount = 1;
             Check.That(continentNumber).IsEqualTo(expectedContinentCount);
         }
+
+        [Test]
+        public void The_number_of_continents_should_be_3_when_map_is_0000100000_0100100111_0111100000_0111100000_0100000100_0001111000_0001111000_0000000000()
+        {
+            int[][] mapStructure = {
+                new[] { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+                new[] { 0, 1, 0, 0, 1, 0, 0, 1, 1, 1 },
+                new[] { 0, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
+                new[] { 0, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
+                new[] { 0, 1, 0, 0, 0, 0, 0, 1, 0, 0 },
+                new[] { 0, 0, 0, 1, 1, 1, 1, 0, 0, 0 },
+                new[] { 0, 0, 0, 1, 1, 1, 1, 0, 0, 0 },
+                new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+            };
+            _map = new MapToolkit.Model.Map(mapStructure);
+            var continentNumber = _map.ComputeContinent();
+
+            var expectedContinentCount = 3;
+            Check.That(continentNumber).IsEqualTo(expectedContinentCount);
+        }
     }
 }
