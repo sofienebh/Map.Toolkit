@@ -29,6 +29,7 @@ namespace MapToolkit.Model
                     {
                         continentCount++;
                         MergeLeftValue(clonedMapStructure, i, j);
+                        MergeDownValue(clonedMapStructure, i, j);
                     }
                 }
             }
@@ -49,6 +50,22 @@ namespace MapToolkit.Model
             if (clonedMapStructure[i][j + 1] == 1)
             {
                 clonedMapStructure[i][j + 1] = -1;
+            }
+        }
+
+        private void MergeDownValue(int[][] clonedMapStructure, int i, int j)
+        {
+            int indX = clonedMapStructure.Length;
+            int indY = clonedMapStructure[0].Length;
+
+            if (i + 1 >= indX)
+            {
+                return;
+            }
+
+            if (clonedMapStructure[i + 1][j] == 1)
+            {
+                clonedMapStructure[i + 1][j] = -1;
             }
         }
     }
